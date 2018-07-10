@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cd /Package
+find *.tar.*>tar.txt
+a="gz"
+b="bz2"
+for i in $(cat tar.txt)
+	do
+		n=$(echo $i | awk -F '.' '{print $NF}')
+		if test "$n" == "$a"
+			then
+				tar -zxf $i &>/dev/null
+		elif test "$n" == "$b"
+			then
+				tar -jxf $i &>/dev/null
+		else
+			echo 'error'
+		fi
+	done
